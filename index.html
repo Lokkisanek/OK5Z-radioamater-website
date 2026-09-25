@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OK5Z no-code editor pro klienty">
+  <title>OK5Z Studio – No-code web builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:wght@400;500;600&family=Chivo+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="login-overlay" class="overlay overlay--visible">
+    <form id="login-form" class="login-card">
+      <p class="login-chip">OK5Z Studio</p>
+      <h1>Režim úprav</h1>
+      <p class="muted">Přihlaste se a začněte upravovat stránku jako no-code editor.</p>
+      <label class="field">
+        <span>Heslo</span>
+        <input type="password" id="login-password" placeholder="např. edit" required>
+      </label>
+      <button type="submit" class="primary">Vstoupit</button>
+      <p class="hint">Výchozí heslo: <strong>edit</strong>. Změňte ho v nastavení stránky.</p>
+    </form>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__tag">OK5Z</span>
+      <div>
+        <strong>Studio</strong>
+        <small>No-code builder</small>
+      </div>
+    </div>
+    <div class="topbar__actions">
+      <button id="toggle-mode" class="ghost" type="button">Zobrazit náhled</button>
+      <button id="save-json" class="primary" type="button">Export JSON</button>
+      <label class="ghost import-label" for="import-json">Import JSON
+        <input id="import-json" type="file" accept="application/json" hidden>
+      </label>
+      <button id="reset-page" class="danger" type="button">Vymazat vše</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel--primary">
+      <section class="panel__section">
+        <div class="panel__heading">
+          <h2>Bloky</h2>
+          <p>Vyberte komponentu, kterou chcete vložit.</p>
+        </div>
+        <div class="component-grid" id="component-grid">
+          <button type="button" class="component-chip" data-component="hero">Hero</button>
+          <button type="button" class="component-chip" data-component="text">Text</button>
+          <button type="button" class="component-chip" data-component="image">Obrázek</button>
+          <button type="button" class="component-chip" data-component="features">Výhody</button>
+          <button type="button" class="component-chip" data-component="cta">CTA</button>
+          <button type="button" class="component-chip" data-component="contact">Kontakt</button>
+          <button type="button" class="component-chip" data-component="custom">Vlastní blok</button>
+        </div>
+      </section>
+
+      <section class="panel__section">
+        <div class="panel__heading">
+          <h2>Obsah stránky</h2>
+          <p>Přetáhněte nebo posouvejte bloky.</p>
+        </div>
+        <ul class="sections-list" id="sections-list"></ul>
+      </section>
+
+      <section class="panel__section">
+        <div class="panel__heading">
+          <h2>Editor bloku</h2>
+          <p>Změňte texty, barvy, odkazy a styl.</p>
+        </div>
+        <div class="editor-fields" id="editor-fields">
+          <p class="empty-state">Vyberte blok v náhledu nebo ve sloupci „Obsah stránky“.</p>
+        </div>
+      </section>
+    </aside>
+
+    <section class="preview" id="preview-pane">
+      <div class="preview__frame">
+        <div class="preview__page" id="page-canvas" data-mode="edit"></div>
+      </div>
+    </section>
+
+    <aside class="panel panel--secondary">
+      <section class="panel__section">
+        <div class="panel__heading">
+          <h2>Nastavení stránky</h2>
+          <p>Globální styly, fonty, heslo.</p>
+        </div>
+        <form id="page-settings-form" class="settings-form">
+          <label class="field">
+            <span>Titulek stránky</span>
+            <input type="text" name="title" placeholder="OK5Z Radioamatéři">
+          </label>
+          <label class="field">
+            <span>Popis pro SEO</span>
+            <textarea name="description" rows="3" placeholder="Krátký popis projektu"></textarea>
+          </label>
+          <label class="field">
+            <span>Výchozí heslo</span>
+            <input type="text" name="password" placeholder="edit">
+          </label>
+          <label class="field">
+            <span>Primární barva</span>
+            <input type="color" name="accentColor">
+          </label>
+          <label class="field">
+            <span>Pozadí stránky</span>
+            <input type="color" name="background">
+          </label>
+          <label class="field">
+            <span>Barva textu</span>
+            <input type="color" name="textColor">
+          </label>
+          <label class="field">
+            <span>Světlý povrch</span>
+            <input type="color" name="surfaceColor">
+          </label>
+          <label class="field">
+            <span>Font</span>
+            <select name="font">
+              <option value="Space Grotesk, sans-serif">Space Grotesk</option>
+              <option value="Newsreader, serif">Newsreader</option>
+              <option value="Chivo Mono, monospace">Chivo Mono</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Maximální šířka (px)</span>
+            <input type="number" name="maxWidth" min="600" max="1400" step="20">
+          </label>
+        </form>
+      </section>
+
+      <section class="panel__section">
+        <div class="panel__heading">
+          <h2>Nápověda</h2>
+        </div>
+        <ul class="tips">
+          <li>Kliknutím na blok se otevře editor.</li>
+          <li>Přetažení madla ⠿ změní pořadí bloků.</li>
+          <li>Tlačítko Export uloží celé rozložení jako JSON.</li>
+          <li>JSON můžete kdykoli importovat zpět bez programování.</li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <script type="module" src="./app.js" defer></script>
+</body>
+</html>
